@@ -4,6 +4,8 @@ My handwriting, as a real font. Every letter is a stroke I actually drew, not a 
 
 ![specimen](specimen.png)
 
+**[See it set &rarr;](https://suhaniashok.github.io/su-hand/)**
+
 This repo is the built font only, published so my projects can pull one copy. The source, the drawings and the build live elsewhere.
 
 ## Use it on the web
