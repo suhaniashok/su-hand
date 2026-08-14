@@ -1,18 +1,24 @@
 {
-  "name": "suhani-hand",
+  "name": "su-hand",
   "version": "1.6.0",
   "description": "Suhani Ashok's handwriting as a font. Regular, with contextual alternates and kerning.",
   "license": "SEE LICENSE IN LICENCE.md",
   "author": "Suhani Ashok",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/suhaniashok/suhani-hand.git"
+    "url": "git+https://github.com/suhaniashok/su-hand.git"
   },
   "files": [
     "dist",
     "README.md",
     "LICENCE.md"
   ],
-  "keywords": ["font", "handwriting", "woff2", "otf", "ttf"],
+  "keywords": [
+    "font",
+    "handwriting",
+    "woff2",
+    "otf",
+    "ttf"
+  ],
   "sideEffects": false
 }

@@ -13,7 +13,7 @@ Via CDN, no install:
 ```css
 @font-face {
   font-family: "Suhani Hand";
-  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/suhani-hand@v1.6.0/dist/SuhaniHand-Regular.woff2") format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v1.6.0/dist/SuhaniHand-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -23,13 +23,13 @@ Via CDN, no install:
 Or install it and serve it yourself:
 
 ```
-npm install github:suhaniashok/suhani-hand
+npm install github:suhaniashok/su-hand
 ```
 
 ```css
 @font-face {
   font-family: "Suhani Hand";
-  src: url("~suhani-hand/dist/SuhaniHand-Regular.woff2") format("woff2");
+  src: url("~su-hand/dist/SuhaniHand-Regular.woff2") format("woff2");
   font-display: swap;
 }
 ```
