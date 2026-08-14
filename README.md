@@ -1,4 +1,4 @@
-# Suhani Hand
+# Su Hand
 
 My handwriting, as a real font. Every letter is a stroke I actually drew, not a redrawn or smoothed version of one.
 
@@ -12,8 +12,8 @@ Via CDN, no install:
 
 ```css
 @font-face {
-  font-family: "Suhani Hand";
-  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v1.6.0/dist/SuhaniHand-Regular.woff2") format("woff2");
+  font-family: "Su Hand";
+  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v2.0.0/dist/SuHand-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -28,8 +28,8 @@ npm install github:suhaniashok/su-hand
 
 ```css
 @font-face {
-  font-family: "Suhani Hand";
-  src: url("~su-hand/dist/SuhaniHand-Regular.woff2") format("woff2");
+  font-family: "Su Hand";
+  src: url("~su-hand/dist/SuHand-Regular.woff2") format("woff2");
   font-display: swap;
 }
 ```
@@ -40,7 +40,7 @@ Pin the tag rather than tracking `main`, so a rebuild never moves type under a l
 
 ```css
 .handwriting {
-  font-family: "Suhani Hand", cursive;
+  font-family: "Su Hand", cursive;
   line-height: 1.5;
   font-synthesis: none;
 }
@@ -67,9 +67,9 @@ Capitals sit at 0.891 em against a 0.545 em x-height. That is a taller ratio tha
 
 | | |
 |---|---|
-| `dist/SuhaniHand-Regular.woff2` | web, 22K |
-| `dist/SuhaniHand-Regular.otf` | Mac, Figma, desktop |
-| `dist/SuhaniHand-Regular.ttf` | iOS and Android bundles |
+| `dist/SuHand-Regular.woff2` | web, 22K |
+| `dist/SuHand-Regular.otf` | Mac, Figma, desktop |
+| `dist/SuHand-Regular.ttf` | iOS and Android bundles |
 
 To install it on a Mac, double-click the `.otf` and hit "Install Font".
 
