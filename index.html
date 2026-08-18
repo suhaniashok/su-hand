@@ -52,19 +52,28 @@ body {
 /* The sheet. It sits on the ground rather than being the ground, so it casts a
    real shadow: a tight dark line where it touches, and a crisp offset cast that
    keeps its edge instead of dissolving into a glow. */
-.wrap {
+/* Holds the sheet and the tape stuck to it, and carries the tilt for both.
+   It never clips, so the tape can hang off the corner. */
+.sheet {
   position:relative;
   width:min(940px, 100% - 40px);
-  margin:clamp(52px, 7vw, 104px) auto clamp(22px, 3vw, 34px);
+  margin:clamp(78px, 10vw, 152px) auto clamp(22px, 3vw, 34px);
   /* Laid down by hand, not placed on a grid. Small enough to feel rather
      than see: over a sheet this tall, a third of a degree already throws
      each corner about ten pixels. */
   transform:rotate(-0.35deg);
+}
+.wrap {
+  position:relative;
+  width:100%;
   --pad:clamp(20px, 5vw, 62px);
   padding:0 var(--pad) 80px;
   /* Anything that reaches past the margin stops at the edge of the paper.
      clip rather than hidden: hidden would make the sheet a scroll container
-     on both axes. Its own shadow sits outside the box and is unaffected. */
+     on both axes. Its own shadow sits outside the box and is unaffected.
+     The tape is deliberately not inside here: overflow-clip-margin is ignored
+     when only one axis is clipped, so anything hanging off the corner is cut
+     no matter how large that margin is set. */
   overflow-x:clip;
   background:var(--paper);
   box-shadow:
@@ -90,18 +99,18 @@ body {
    the same strip goes dark where it lies on the ground and bright where it
    lies on the paper, and the sheet's own edge shows underneath. Opaque, it is
    a sticker. So it is drawn solid and then let down to 82%. */
-.wrap > .tape {
+.sheet > .tape {
   position:absolute; top:-26px; z-index:3; pointer-events:none;
   width:236px; height:64px; opacity:.82;
   filter:drop-shadow(0 1px 1.5px rgba(4,18,40,.3));
   background-repeat:no-repeat; background-position:center; background-size:100% 100%;
 }
-.wrap > .tape-l {
-  left:38px; transform:rotate(-5deg);
+.sheet > .tape-l {
+  left:56px; transform:rotate(-1.6deg);
   background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27340%27%20height%3D%2792%27%20viewBox%3D%270%200%20340%2092%27%3E%3Cdefs%3E%3CclipPath%20id%3D%27c%27%3E%3Cpath%20d%3D%27M9%2015%20C%2070%2011%2C%20160%2019%2C%20244%2014%20C%20286%2011%2C%20314%2018%2C%20331%2015%20Q%20341.33%2022.75%20331.00%2030.50%20Q%20341.33%2038.25%20331.00%2046.00%20Q%20341.33%2053.75%20331.00%2061.50%20Q%20341.33%2069.25%20331.00%2077.00%20C%20292%2081%2C%20195%2072%2C%20110%2078%20C%2070%2080%2C%2032%2074%2C%209%2077%20Q%20-1.33%2069.25%209.00%2061.50%20Q%20-1.33%2053.75%209.00%2046.00%20Q%20-1.33%2038.25%209.00%2030.50%20Q%20-1.33%2022.75%209.00%2015.00%20Z%27%2F%3E%3C%2FclipPath%3E%3Cfilter%20id%3D%27w1%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.014%27%20numOctaves%3D%274%27%20seed%3D%273%27%2F%3E%3CfeColorMatrix%20type%3D%27matrix%27%20values%3D%270%200%200%200%20.74%200%200%200%200%20.56%200%200%200%200%20.12%200%200%200%201.15%20-.44%27%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%27w2%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.5%27%20numOctaves%3D%273%27%20seed%3D%2711%27%2F%3E%3CfeColorMatrix%20type%3D%27matrix%27%20values%3D%270%200%200%200%20.5%200%200%200%200%20.38%200%200%200%200%20.06%200%200%200%20.66%20-.32%27%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%27soft%27%3E%3CfeGaussianBlur%20stdDeviation%3D%270.4%27%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%27fold%27%3E%3CfeGaussianBlur%20stdDeviation%3D%273.4%27%2F%3E%3C%2Ffilter%3E%3Cg%20id%3D%27m%27%3E%3Cg%20fill%3D%27%23fff%27%3E%3Cellipse%20cx%3D%270%27%20cy%3D%27-6.8%27%20rx%3D%273.9%27%20ry%3D%276.8%27%2F%3E%3Cellipse%20cx%3D%270%27%20cy%3D%27-6.8%27%20rx%3D%273.9%27%20ry%3D%276.8%27%20transform%3D%27rotate%2860%29%27%2F%3E%3Cellipse%20cx%3D%270%27%20cy%3D%27-6.8%27%20rx%3D%273.9%27%20ry%3D%276.8%27%20transform%3D%27rotate%28120%29%27%2F%3E%3Cellipse%20cx%3D%270%27%20cy%3D%27-6.8%27%20rx%3D%273.9%27%20ry%3D%276.8%27%20transform%3D%27rotate%28180%29%27%2F%3E%3Cellipse%20cx%3D%270%27%20cy%3D%27-6.8%27%20rx%3D%273.9%27%20ry%3D%276.8%27%20transform%3D%27rotate%28240%29%27%2F%3E%3Cellipse%20cx%3D%270%27%20cy%3D%27-6.8%27%20rx%3D%273.9%27%20ry%3D%276.8%27%20transform%3D%27rotate%28300%29%27%2F%3E%3C%2Fg%3E%3Ccircle%20r%3D%273%27%20fill%3D%27%23E9A400%27%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%27url%28%23c%29%27%3E%3Cpath%20d%3D%27M9%2015%20C%2070%2011%2C%20160%2019%2C%20244%2014%20C%20286%2011%2C%20314%2018%2C%20331%2015%20Q%20341.33%2022.75%20331.00%2030.50%20Q%20341.33%2038.25%20331.00%2046.00%20Q%20341.33%2053.75%20331.00%2061.50%20Q%20341.33%2069.25%20331.00%2077.00%20C%20292%2081%2C%20195%2072%2C%20110%2078%20C%2070%2080%2C%2032%2074%2C%209%2077%20Q%20-1.33%2069.25%209.00%2061.50%20Q%20-1.33%2053.75%209.00%2046.00%20Q%20-1.33%2038.25%209.00%2030.50%20Q%20-1.33%2022.75%209.00%2015.00%20Z%27%20fill%3D%27%23F3CE60%27%2F%3E%3Crect%20width%3D%27340%27%20height%3D%2792%27%20filter%3D%27url%28%23w1%29%27%2F%3E%3Crect%20width%3D%27340%27%20height%3D%2792%27%20filter%3D%27url%28%23w2%29%27%20opacity%3D%27.6%27%2F%3E%3Cg%20filter%3D%27url%28%23soft%29%27%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28-6%2030%29%20rotate%287%29%20scale%281%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%2870%2027%29%20rotate%28-12%29%20scale%28.96%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28146%2031%29%20rotate%2816%29%20scale%281.02%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28222%2028%29%20rotate%28-6%29%20scale%28.97%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28298%2031%29%20rotate%2810%29%20scale%281%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28352%2028%29%20rotate%28-9%29%20scale%28.95%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%2830%2063%29%20rotate%28-8%29%20scale%28.97%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28106%2066%29%20rotate%2813%29%20scale%281.02%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28182%2062%29%20rotate%28-15%29%20scale%28.96%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28258%2066%29%20rotate%285%29%20scale%281%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28334%2062%29%20rotate%28-11%29%20scale%28.98%29%27%2F%3E%3C%2Fg%3E%3Cg%20filter%3D%27url%28%23fold%29%27%3E%3Cpath%20d%3D%27M74%208%20C%2071%2034%2C%2069%2056%2C%2065%2084%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3Cpath%20d%3D%27M81%208%20C%2078%2034%2C%2076%2056%2C%2072%2084%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%275%27%2F%3E%3Cpath%20d%3D%27M168%208%20C%20165%2034%2C%20163%2056%2C%20159%2084%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3Cpath%20d%3D%27M175%208%20C%20172%2034%2C%20170%2056%2C%20166%2084%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%275%27%2F%3E%3Cpath%20d%3D%27M262%208%20C%20259%2034%2C%20257%2056%2C%20253%2084%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3Cpath%20d%3D%27M269%208%20C%20266%2034%2C%20264%2056%2C%20260%2084%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%275%27%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%27M9%2015%20C%2070%2011%2C%20160%2019%2C%20244%2014%20C%20286%2011%2C%20314%2018%2C%20331%2015%20Q%20341.33%2022.75%20331.00%2030.50%20Q%20341.33%2038.25%20331.00%2046.00%20Q%20341.33%2053.75%20331.00%2061.50%20Q%20341.33%2069.25%20331.00%2077.00%20C%20292%2081%2C%20195%2072%2C%20110%2078%20C%2070%2080%2C%2032%2074%2C%209%2077%20Q%20-1.33%2069.25%209.00%2061.50%20Q%20-1.33%2053.75%209.00%2046.00%20Q%20-1.33%2038.25%209.00%2030.50%20Q%20-1.33%2022.75%209.00%2015.00%20Z%27%20fill%3D%27none%27%20stroke%3D%27%23C09322%27%20stroke-opacity%3D%27.4%27%20stroke-width%3D%274%27%2F%3E%3Cpath%20d%3D%27M4%2022%20C%2090%2017%2C%20200%2026%2C%20338%2020%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
-.wrap > .tape-r {
-  right:38px; transform:rotate(4deg);
+.sheet > .tape-r {
+  top:14px; right:-64px; transform:rotate(45deg);
   background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27340%27%20height%3D%2792%27%20viewBox%3D%270%200%20340%2092%27%3E%3Cdefs%3E%3CclipPath%20id%3D%27c%27%3E%3Cpath%20d%3D%27M9%2015%20C%2070%2011%2C%20160%2019%2C%20244%2014%20C%20286%2011%2C%20314%2018%2C%20331%2015%20Q%20341.33%2022.75%20331.00%2030.50%20Q%20341.33%2038.25%20331.00%2046.00%20Q%20341.33%2053.75%20331.00%2061.50%20Q%20341.33%2069.25%20331.00%2077.00%20C%20292%2081%2C%20195%2072%2C%20110%2078%20C%2070%2080%2C%2032%2074%2C%209%2077%20Q%20-1.33%2069.25%209.00%2061.50%20Q%20-1.33%2053.75%209.00%2046.00%20Q%20-1.33%2038.25%209.00%2030.50%20Q%20-1.33%2022.75%209.00%2015.00%20Z%27%2F%3E%3C%2FclipPath%3E%3Cfilter%20id%3D%27w1%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.014%27%20numOctaves%3D%274%27%20seed%3D%273%27%2F%3E%3CfeColorMatrix%20type%3D%27matrix%27%20values%3D%270%200%200%200%20.7%200%200%200%200%20.66%200%200%200%200%20.56%200%200%200%201%20-.42%27%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%27w2%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.5%27%20numOctaves%3D%273%27%20seed%3D%2711%27%2F%3E%3CfeColorMatrix%20type%3D%27matrix%27%20values%3D%270%200%200%200%20.55%200%200%200%200%20.5%200%200%200%200%20.4%200%200%200%20.6%20-.32%27%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%27soft%27%3E%3CfeGaussianBlur%20stdDeviation%3D%270.4%27%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%27fold%27%3E%3CfeGaussianBlur%20stdDeviation%3D%273.4%27%2F%3E%3C%2Ffilter%3E%3Cg%20id%3D%27m%27%3E%3Ccircle%20r%3D%2711.4%27%20fill%3D%27%23F7C531%27%2F%3E%3Ccircle%20cx%3D%27-4.1%27%20cy%3D%27-3%27%20r%3D%272%27%20fill%3D%27%233A2A08%27%2F%3E%3Ccircle%20cx%3D%274.1%27%20cy%3D%27-3%27%20r%3D%272%27%20fill%3D%27%233A2A08%27%2F%3E%3Cpath%20d%3D%27M-5.6%202.4%20Q%200%208%2C%205.6%202.4%27%20fill%3D%27none%27%20stroke%3D%27%233A2A08%27%20stroke-width%3D%272.3%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Cg%20clip-path%3D%27url%28%23c%29%27%3E%3Cpath%20d%3D%27M9%2015%20C%2070%2011%2C%20160%2019%2C%20244%2014%20C%20286%2011%2C%20314%2018%2C%20331%2015%20Q%20341.33%2022.75%20331.00%2030.50%20Q%20341.33%2038.25%20331.00%2046.00%20Q%20341.33%2053.75%20331.00%2061.50%20Q%20341.33%2069.25%20331.00%2077.00%20C%20292%2081%2C%20195%2072%2C%20110%2078%20C%2070%2080%2C%2032%2074%2C%209%2077%20Q%20-1.33%2069.25%209.00%2061.50%20Q%20-1.33%2053.75%209.00%2046.00%20Q%20-1.33%2038.25%209.00%2030.50%20Q%20-1.33%2022.75%209.00%2015.00%20Z%27%20fill%3D%27%23F6F2E9%27%2F%3E%3Crect%20width%3D%27340%27%20height%3D%2792%27%20filter%3D%27url%28%23w1%29%27%2F%3E%3Crect%20width%3D%27340%27%20height%3D%2792%27%20filter%3D%27url%28%23w2%29%27%20opacity%3D%27.6%27%2F%3E%3Cg%20filter%3D%27url%28%23soft%29%27%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28-6%2030%29%20rotate%287%29%20scale%281%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%2870%2027%29%20rotate%28-12%29%20scale%28.96%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28146%2031%29%20rotate%2816%29%20scale%281.02%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28222%2028%29%20rotate%28-6%29%20scale%28.97%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28298%2031%29%20rotate%2810%29%20scale%281%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28352%2028%29%20rotate%28-9%29%20scale%28.95%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%2830%2063%29%20rotate%28-8%29%20scale%28.97%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28106%2066%29%20rotate%2813%29%20scale%281.02%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28182%2062%29%20rotate%28-15%29%20scale%28.96%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28258%2066%29%20rotate%285%29%20scale%281%29%27%2F%3E%3Cuse%20href%3D%27%23m%27%20transform%3D%27translate%28334%2062%29%20rotate%28-11%29%20scale%28.98%29%27%2F%3E%3C%2Fg%3E%3Cg%20filter%3D%27url%28%23fold%29%27%3E%3Cpath%20d%3D%27M74%208%20C%2071%2034%2C%2069%2056%2C%2065%2084%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3Cpath%20d%3D%27M81%208%20C%2078%2034%2C%2076%2056%2C%2072%2084%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%275%27%2F%3E%3Cpath%20d%3D%27M168%208%20C%20165%2034%2C%20163%2056%2C%20159%2084%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3Cpath%20d%3D%27M175%208%20C%20172%2034%2C%20170%2056%2C%20166%2084%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%275%27%2F%3E%3Cpath%20d%3D%27M262%208%20C%20259%2034%2C%20257%2056%2C%20253%2084%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.2%27%20stroke-width%3D%277%27%2F%3E%3Cpath%20d%3D%27M269%208%20C%20266%2034%2C%20264%2056%2C%20260%2084%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-opacity%3D%27.07%27%20stroke-width%3D%275%27%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%27M9%2015%20C%2070%2011%2C%20160%2019%2C%20244%2014%20C%20286%2011%2C%20314%2018%2C%20331%2015%20Q%20341.33%2022.75%20331.00%2030.50%20Q%20341.33%2038.25%20331.00%2046.00%20Q%20341.33%2053.75%20331.00%2061.50%20Q%20341.33%2069.25%20331.00%2077.00%20C%20292%2081%2C%20195%2072%2C%20110%2078%20C%2070%2080%2C%2032%2074%2C%209%2077%20Q%20-1.33%2069.25%209.00%2061.50%20Q%20-1.33%2053.75%209.00%2046.00%20Q%20-1.33%2038.25%209.00%2030.50%20Q%20-1.33%2022.75%209.00%2015.00%20Z%27%20fill%3D%27none%27%20stroke%3D%27%23C8BEA6%27%20stroke-opacity%3D%27.4%27%20stroke-width%3D%274%27%2F%3E%3Cpath%20d%3D%27M4%2022%20C%2090%2017%2C%20200%2026%2C%20338%2020%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.09%27%20stroke-width%3D%277%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
 
@@ -120,22 +129,25 @@ body {
    subtitle, and scales with the clamp. */
 .title { font-size:clamp(64px, 17vw, 141px); line-height:1; margin:.42em 0 0; letter-spacing:-.01em; }
 .sub { max-width:34ch; margin:18px 0 0; color:var(--muted); font-size:17px; line-height:1.6; text-wrap:balance; }
-/* Getting the font. Marked with the same highlighter the set labels use and
-   written in the face itself, rather than a chip borrowed from somewhere else:
-   a rectangle of UI is the one thing here that could not be on paper. */
-.get { display:flex; flex-direction:column; align-items:center; gap:14px; margin:26px 0 0; }
+/* Getting the font. All three in mono, because they are instrument rather than
+   specimen, with the one that matters run through with the same highlighter the
+   set labels use. */
+.get { display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+       gap:14px 26px; margin:28px 0 0; }
 .btn {
-  font-family:"Su Hand", cursive; font-synthesis:none;
-  font-size:27px; line-height:1.1; color:var(--pen); text-decoration:none;
-  padding:3px 16px 7px;
+  font-family:var(--mono); font-size:13px; letter-spacing:.02em;
+  color:var(--ink); text-decoration:none; padding:7px 14px 8px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27200%27%20height%3D%2740%27%20viewBox%3D%270%200%20200%2040%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M2%207%20C%2046%203%2C%20122%2010%2C%20198%205%20L%20197%2034%20C%20138%2038%2C%2058%2031%2C%203%2035%20Z%27%20fill%3D%27%23FBE08A%27%2F%3E%3Cpath%20d%3D%27M10%2011%20C%2062%208%2C%20128%2015%2C%20190%2012%20L%20189%2029%20C%20126%2032%2C%2052%2026%2C%2012%2030%20Z%27%20fill%3D%27%23F7CE55%27%20fill-opacity%3D%27.55%27%2F%3E%3C%2Fsvg%3E") no-repeat center/100% 100%;
-  transition:transform .16s ease;
+  transition:transform .16s ease, color .16s ease;
 }
-.btn:hover { transform:rotate(-1.2deg) scale(1.03); }
-.get-alt { display:flex; gap:18px; font-family:var(--sans); font-size:13px; }
-.get-alt a { color:var(--muted); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; }
-.get-alt a:hover { color:var(--pen); border-bottom-color:var(--pen); }
-.btn:focus-visible, .get-alt a:focus-visible { outline:2px solid var(--pen); outline-offset:4px; }
+/* One hover for all three: the highlighted one is not a different kind of
+   thing, only the one that matters most. */
+.btn:hover, .quiet:hover { color:var(--ink); transform:translateY(-2px); }
+.quiet { font-family:var(--mono); font-size:13px; letter-spacing:.02em; color:var(--muted);
+         text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:3px;
+         transition:transform .16s ease, color .16s ease, border-color .16s ease; }
+.quiet:hover { border-bottom-color:var(--ink); }
+.btn:focus-visible, .quiet:focus-visible { outline:2px solid var(--pen); outline-offset:4px; }
 
 section { padding-top:clamp(60px, 7.5vw, 98px); }
 section:first-of-type { padding-top:clamp(36px, 4vw, 54px); }
@@ -278,6 +290,9 @@ footer {
 }
 /* The chip is drawn for the paper. Out here it would be a white block on the
    ground, so it is a tint of the ground instead. */
+footer a { color:rgba(255,255,255,.82); text-decoration:none;
+           border-bottom:1px solid rgba(255,255,255,.3); padding-bottom:1px; }
+footer a:hover { color:#fff; border-bottom-color:#fff; }
 footer code {
   background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.18);
   color:rgba(255,255,255,.82);
@@ -318,16 +333,21 @@ code { font-family:var(--mono); font-size:.92em; background:var(--surface); bord
 /* Narrow screens: the sheet fills the width, so a tilt has nowhere to swing
    and pushes the page sideways. It lies straight there, under one strip. */
 @media (max-width: 640px) {
-  .wrap { transform:none; }
-  .wrap > .tape-r { display:none; }
-  .wrap > .tape-l { left:50%; transform:translateX(-50%) rotate(-2.5deg); }
+  .sheet { transform:none; }
+  /* At 76px a cell only fits three across a phone, which made the glyph
+     section most of the page's height. Smaller cells put five in a row. */
+  .grid { grid-template-columns:repeat(auto-fill, minmax(54px, 1fr)); gap:6px; }
+  .glyph { font-size:25px; }
+  .sheet > .tape-r { display:none; }
+  .sheet > .tape-l { left:50%; transform:translateX(-50%) rotate(-2.5deg); }
 }
 </style>
 
-<div class="wrap">
+<div class="sheet">
   <div class="tape tape-l" aria-hidden="true"></div>
 
   <div class="tape tape-r" aria-hidden="true"></div>
+  <div class="wrap">
   <header class="hero">
     <h1 class="title">
     <svg class="title-svg" viewBox="0 0 3409 929" role="img" aria-label="Su Hand" xmlns="http://www.w3.org/2000/svg">
@@ -361,11 +381,9 @@ code { font-family:var(--mono); font-size:.92em; background:var(--surface); bord
     <!-- dist/ sits beside this page in the published repo, so the same relative
          path works here and there. -->
     <p class="get rise">
-      <a class="btn hand" href="dist/SuHand-Regular.otf" download>Take the font</a>
-      <span class="get-alt">
-        <a href="dist/SuHand-Regular.woff2" download>woff2 for the web</a>
-        <a href="https://github.com/suhaniashok/su-hand">GitHub</a>
-      </span>
+      <a class="btn" href="dist/SuHand-Regular.otf" download>Install .otf</a>
+      <a class="quiet" href="dist/SuHand-Regular.woff2" download>Web .woff2</a>
+      <a class="quiet" href="https://github.com/suhaniashok/su-hand">GitHub</a>
     </p>
   </header>
 
@@ -549,12 +567,13 @@ code { font-family:var(--mono); font-size:.92em; background:var(--surface); bord
       <div class="fact"><dt>Web file</dt><dd>33 KB</dd></div>
     </dl>
   </section>
+  </div>
 </div>
 
 <footer>
   One weight, no italic. Set <code>font-synthesis: none</code> so nothing fakes a bold by smearing the strokes.<br />
   Capitals sit tall against the x-height, which is what my writing does, so all-caps wants a size down.<br />
-  &copy; Suhani Ashok. All rights reserved.
+  &copy; Suhani Ashok. Free for personal use. <a href="https://github.com/suhaniashok/su-hand/blob/main/LICENCE.md">Ask me</a> before anything commercial.
 </footer>
 
 <script>

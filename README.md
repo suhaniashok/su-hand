@@ -15,7 +15,7 @@ Via CDN, no install:
 ```css
 @font-face {
   font-family: "Su Hand";
-  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v0.6.0/dist/SuHand-Regular.woff2") format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v0.6.1/dist/SuHand-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
