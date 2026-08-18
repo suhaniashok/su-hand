@@ -79,4 +79,9 @@ To install it on a Mac, double-click the `.otf` and hit "Install Font".
 
 © Suhani Ashok. All rights reserved.
 
-Public so my own projects can fetch it. It is my handwriting, so please don't use it as your own; if you want to use it for something, ask me.
+**Free for personal use. Ask me before anything commercial.** Install it and
+set what you like with it for yourself; open an issue before using it for a
+client, a product, a brand or anything that earns money. Please do not
+redistribute the files, host your own copy, or alter the outlines.
+
+Full terms in [LICENCE.md](LICENCE.md).
