@@ -237,14 +237,21 @@ input[type=range]::-moz-range-track {
   height:14px; border:0;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271000%27%20height%3D%2714%27%20preserveAspectRatio%3D%27none%27%20viewBox%3D%270%200%201000%2014%27%3E%3Cpath%20d%3D%27M4%207%20C%2080%204.8%2C%20165%209.2%2C%20250%207%20C%20335%204.8%2C%20420%209.2%2C%20500%207%20C%20580%204.8%2C%20665%209.2%2C%20750%207%20C%20835%204.8%2C%20920%209.2%2C%20996%207%27%20fill%3D%27none%27%20stroke%3D%27%23EDF1F5%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E") no-repeat left center/100% 14px;
 }
+/* box-shadow:none is doing real work on iOS. Safari there gives the thumb a
+   shadow of its own that appearance:none does not clear, and because the blob
+   is drawn inside a 28px box with transparent corners, that shadow shows up as
+   a white square sitting behind it. Desktop Safari and Chrome draw no such
+   shadow, so the sheet looks right everywhere except on a phone. The colour
+   was never the problem: the background shorthand already leaves it
+   transparent, and setting it explicitly changes nothing. */
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance:none; appearance:none; border:0;
+  -webkit-appearance:none; appearance:none; border:0; box-shadow:none;
   width:28px; height:28px; margin-top:-7px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2728%27%3E%3Cpath%20d%3D%27M14%202.6%20C%2020.4%202.2%2C%2025.6%207.4%2C%2025.4%2013.9%20C%2025.2%2020.6%2C%2020.2%2025.6%2C%2013.6%2025.4%20C%207.2%2025.2%2C%202.4%2020.1%2C%202.6%2013.6%20C%202.8%207.3%2C%207.7%203%2C%2014%202.6%20Z%27%20fill%3D%27%23F2B10A%27%2F%3E%3C%2Fsvg%3E") no-repeat center/28px 28px;
   transition:transform .12s ease;
 }
 input[type=range]::-moz-range-thumb {
-  border:0; width:28px; height:28px;
+  border:0; box-shadow:none; width:28px; height:28px;
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2728%27%3E%3Cpath%20d%3D%27M14%202.6%20C%2020.4%202.2%2C%2025.6%207.4%2C%2025.4%2013.9%20C%2025.2%2020.6%2C%2020.2%2025.6%2C%2013.6%2025.4%20C%207.2%2025.2%2C%202.4%2020.1%2C%202.6%2013.6%20C%202.8%207.3%2C%207.7%203%2C%2014%202.6%20Z%27%20fill%3D%27%23F2B10A%27%2F%3E%3C%2Fsvg%3E") no-repeat center/28px 28px;
 }
 input[type=range]:hover::-webkit-slider-thumb { transform:scale(1.12) rotate(-6deg); }
