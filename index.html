@@ -364,6 +364,17 @@ code { font-family:var(--mono); font-size:.92em; background:var(--surface); bord
   .glyph { font-size:25px; }
   .sheet > .tape-r { display:none; }
   .sheet > .tape-l { left:50%; transform:translateX(-50%) rotate(-2.5deg); }
+  /* The strip is 236px against a 350px sheet, so on a phone it covers most of
+     the width and becomes the loudest thing above the fold. The height follows
+     the artwork's own 236:64, so the die-cut scallops keep their shape rather
+     than stretching, and the overhang keeps its share of the height. */
+  .sheet > .tape { width:150px; height:41px; top:-17px; }
+  /* The wordmark is drawn, so it takes the width it is given and fills 86% of
+     the sheet. Narrower lets it and the line under it read as one block
+     instead of a banner with a caption. The h1 only carries the top margin
+     now that its contents are an SVG, so it comes down with it. */
+  .title-svg { max-width:210px; }
+  .title { font-size:48px; }
   /* Three links on one line leaves each of them a thumb's width apart at best.
      Given the row's full width they sit as three comfortable targets. */
   .get { gap:10px 18px; }
