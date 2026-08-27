@@ -88,9 +88,10 @@ body {
    the hero ever moves however much or little the line says. */
 .markstage {
   position:relative; cursor:text;
-  height:var(--stage-h, clamp(186px, 33vh, 340px));
+  height:var(--stage-h, clamp(250px, 41vh, 412px));
   display:flex; align-items:center; justify-content:center;
 }
+.stagegroup { width:100%; }
 #play {
   position:relative; z-index:2;
   width:100%; max-width:min(1000px, 86%); margin:0 auto; text-align:center;
@@ -292,11 +293,13 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
   </div>
 
   <div class="markbox" id="markbox">
-    <p class="intro">i&#x2019;m su, and <em>*drumroll please*</em></p>
     <div class="markstage" id="markstage">
-      <div id="play" contenteditable="true" spellcheck="false" role="textbox"
-           aria-multiline="true" aria-label="Write your own line in Su Hand"
-           data-ph="go on, type">This is Su Hand. It&#x2019;s made for you.</div>
+      <div class="stagegroup" id="stagegroup">
+        <p class="intro">i&#x2019;m su, and <em>*drumroll please*</em></p>
+        <div id="play" contenteditable="true" spellcheck="false" role="textbox"
+             aria-multiline="true" aria-label="Write your own line in Su Hand"
+             data-ph="go on, type">This is Su Hand. It&#x2019;s made for you.</div>
+      </div>
     </div>
   </div>
 
@@ -480,8 +483,7 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
 </section>
 
 <footer>
-  One weight, no italic. Set <code>font-synthesis: none</code> so nothing fakes a bold by smearing the strokes.<br />
-  Capitals sit tall against the x-height, which is what my writing does, so all-caps wants a size down.<br />
+  One weight, no italic.<br />
   &copy; Suhani Ashok. <span class="lic">Free for personal use. <a href="https://github.com/suhaniashok/su-hand/blob/main/LICENCE.md">Ask me</a> before anything commercial.</span>
 </footer>
 
@@ -490,6 +492,7 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
   var markbox = document.getElementById("markbox");
   var stage = document.getElementById("markstage");
   var play = document.getElementById("play");
+  var group = document.getElementById("stagegroup");
 
   // The line the page ships with. Written over while you are in the field, and
   // put back the moment you leave it.
@@ -504,7 +507,7 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
     for (var i = 0; i < 12; i++) {
       var mid = (lo + hi) / 2;
       play.style.fontSize = mid + "px";
-      if (play.scrollHeight <= h + 1) { best = mid; lo = mid; } else { hi = mid; }
+      if (group.scrollHeight <= h + 1) { best = mid; lo = mid; } else { hi = mid; }
     }
     play.style.fontSize = best + "px";
   }
