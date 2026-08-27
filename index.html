@@ -98,7 +98,7 @@ body {
   outline:none; border:0; background:none;
   font-family:"Su Hand", cursive; font-synthesis:none;
   font-size:100px; color:var(--ink); caret-color:var(--accent);
-  overflow-wrap:break-word; text-wrap:balance;
+  overflow-wrap:normal; word-break:normal; text-wrap:balance;
   transition:color .2s ease;
   /* This face's ink runs .895em above the baseline and .438em below it. Any
      line tighter than its own .92 + .45 metrics crops the tails off. */
@@ -110,6 +110,9 @@ body {
    it, so what you type is never the dimmer of the two. */
 .markstage:hover #play { color:#454550; }
 .markbox.writing #play { color:var(--ink); }
+/* Only ever set by the script, and only when a word is longer than the column
+   even at the smallest size it will go to. */
+.markbox.breaking #play { overflow-wrap:break-word; }
 
 /* Stamped on the paper rather than printed with it: off the horizontal, and
    held to one corner. Carried as an alpha mask rather than as a picture: the
@@ -499,29 +502,56 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
   var LINE = play.textContent.trim();
   var MIN = 15, MAX = 150;
 
+  // Too tall for the box, or too wide for the column. Width has to be asked
+  // about separately: a single word wider than the column is the one case
+  // height cannot see, because the word breaks and the height stays legal.
+  function overflows(h) {
+    return group.scrollHeight > h + 1 || play.scrollWidth > play.clientWidth + 1;
+  }
+
   // The box cannot grow, so the type gives way instead. Halving the interval is
   // the only honest way to do this: how tall a run of text is does not vary
   // smoothly with its size, it steps every time a word falls onto a new line.
   function fit() {
+    markbox.classList.remove("breaking");
     var h = stage.clientHeight, lo = MIN, hi = MAX, best = MIN;
     for (var i = 0; i < 12; i++) {
       var mid = (lo + hi) / 2;
       play.style.fontSize = mid + "px";
-      if (group.scrollHeight <= h + 1) { best = mid; lo = mid; } else { hi = mid; }
+      if (!overflows(h)) { best = mid; lo = mid; } else { hi = mid; }
     }
     play.style.fontSize = best + "px";
+    // A word longer than the column even at the smallest size has to be let
+    // break, or it runs off the side of the page.
+    if (overflows(h)) markbox.classList.add("breaking");
+  }
+
+  // The eyebrow introduces the page's own line, so it has no business sitting
+  // over somebody else's. It goes while the field is being written in, and stays
+  // gone for as long as what is in the field is not the line it introduces.
+  function syncIntro() {
+    var theirs = play.textContent.trim() !== LINE;
+    markbox.classList.toggle("writing", theirs || document.activeElement === play);
   }
 
   function reset() {
-    markbox.classList.remove("writing");
     play.textContent = LINE;
+    syncIntro();
     fit();
   }
 
-  // Click in and the line is yours; click out and it goes back to being the
-  // page's own. Focus rather than clicks, so tabbing to it does the same thing.
-  play.addEventListener("focus", function () { markbox.classList.add("writing"); });
-  play.addEventListener("blur", reset);
+  play.addEventListener("focus", syncIntro);
+  // Losing focus is not the same as walking away. On a phone, dismissing the
+  // keyboard blurs the field without the reader going anywhere, and wiping what
+  // they had just written because the keyboard slid down would be daylight
+  // robbery. So what restores the line is a press somewhere else on the page,
+  // which is what "click out" actually means, and which the keyboard's own
+  // Done button never sends.
+  play.addEventListener("blur", syncIntro);
+  document.addEventListener("pointerdown", function (e) {
+    if (markbox.contains(e.target)) return;
+    if (play.textContent.trim() !== LINE) reset();
+  });
   stage.addEventListener("mousedown", function (e) {
     if (e.target === play || play.contains(e.target)) return;
     e.preventDefault();
@@ -532,6 +562,7 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
     // Emptying a contenteditable by hand leaves a stray <br> behind, and :empty
     // stops matching, so the placeholder would never come back.
     if (!play.textContent.trim()) play.innerHTML = "";
+    syncIntro();
     fit();
   });
   // contenteditable will happily take styled markup off the clipboard. Strip it
@@ -543,7 +574,7 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
   });
   play.addEventListener("keydown", function (e) {
     if (e.key === "Enter") { e.preventDefault(); document.execCommand("insertText", false, " "); }
-    if (e.key === "Escape") play.blur();
+    if (e.key === "Escape") { reset(); play.blur(); }
   });
 
   fit();
