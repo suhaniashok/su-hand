@@ -15,7 +15,7 @@ Via CDN, no install:
 ```css
 @font-face {
   font-family: "Su Hand";
-  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v0.6.2/dist/SuHand-Regular.woff2") format("woff2");
+  src: url("https://cdn.jsdelivr.net/gh/suhaniashok/su-hand@v1.0.0/dist/SuHand-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -58,10 +58,12 @@ Nothing needs enabling. The alternates (`calt`) and the kerning (`kern`) are bot
 ## What's in it
 
 - **a-z**, **A-Z**, **0-9**
-- **Punctuation**: `- ! ? ' " . , : ; # % ( ) [ ] / & @ _ * ^ + = $`, plus smart quotes, so `'` `'` `"` `"` resolve to the marks I drew rather than falling back
-- **Alternates that fire on their own.** I wrote `t` four times, `r` three times, and `a` `e` `i` `n` `o` `s` twice each, so a repeat inside a word steps to the next form. "letter" gets two different `t`s, "toronto" gets three different `o`s, "keen" gets two different `e`s. This is the single thing that stops a handwriting font reading as fake.
-- **Kerning**, 4,442 pairs, measured off the outlines rather than chosen by hand
-- 100 glyphs, 93 codepoints
+- **Punctuation**: `- ! ? ' " . , : ; # % ( ) [ ] / & @ _ * ^ + = $` and ``~ | \ ` < > × · … → ₹ – — − °``, plus smart quotes, so `'` `'` `"` `"` resolve to the marks I drew rather than falling back. Opening and closing quotes are separate marks, so a quotation curls the right way round at both ends.
+- **Alternates that fire on their own.** Every letter is drawn twice and `a` `e` `o` three times, each form a separate stroke off the pen rather than the same one reused, so a repeat inside a word steps to the next form. "will" gets two different `l`s, "letter" two different `t`s, "keen" two different `e`s. This is the single thing that stops a handwriting font reading as fake.
+- **You can also pick a form by hand.** The automatic rule only steps a *repeat*, so a letter that turns up once in a word never reaches its other form, which shows the moment you set a single word as a heading. `font-feature-settings: "salt" 1` takes the second form, `"ss02" 1` the third for `a` `e` `o`.
+- **Three drawn pairs**, `tt` `oo` `ee`, joined by the stroke that runs out of one letter and into the next, which is what my hand does at speed and what no amount of kerning can produce. `tt` fires everywhere; `oo` and `ee` are a flourish, so they turn up on about one in six and one in four.
+- **Kerning**, 9,084 pairs, measured off the outlines rather than chosen by hand
+- 139 glyphs, 110 codepoints
 
 Capitals sit at 0.891 em against a 0.545 em x-height. That is a taller ratio than a text face, because it is what my writing does, so ALL CAPS reads large and wants a size down.
 
@@ -69,15 +71,19 @@ Capitals sit at 0.891 em against a 0.545 em x-height. That is a taller ratio tha
 
 | | |
 |---|---|
-| `dist/SuHand-Regular.woff2` | web, 22K |
+| `dist/SuHand-Regular.woff2` | web, 34K |
 | `dist/SuHand-Regular.otf` | Mac, Figma, desktop |
 | `dist/SuHand-Regular.ttf` | iOS and Android bundles |
 
-To install it on a Mac, double-click the `.otf` and hit "Install Font".
+To install it on a Mac, double-click the `.otf` and hit "Install Font". On an
+iPhone or iPad, downloading the file does not install it: iOS needs the font to
+arrive as a configuration profile, so use a font installer app from the App
+Store, or set it on the web with the `.woff2` above and skip installing
+altogether.
 
 ## Licence
 
-© Suhani Ashok. All rights reserved.
+© Suhani Ashok.
 
 **Free for personal use. Ask me before anything commercial.** Install it and
 set what you like with it for yourself; open an issue before using it for a
