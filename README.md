@@ -75,11 +75,7 @@ Capitals sit at 0.891 em against a 0.545 em x-height. That is a taller ratio tha
 | `dist/SuHand-Regular.otf` | Mac, Figma, desktop |
 | `dist/SuHand-Regular.ttf` | iOS and Android bundles |
 
-To install it on a Mac, double-click the `.otf` and hit "Install Font". On an
-iPhone or iPad, downloading the file does not install it: iOS needs the font to
-arrive as a configuration profile, so use a font installer app from the App
-Store, or set it on the web with the `.woff2` above and skip installing
-altogether.
+To install it on a Mac, double-click the `.otf` and hit "Install Font".
 
 ## Licence
 

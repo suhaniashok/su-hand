@@ -135,16 +135,8 @@ body {
 }
 
 
-.hero-foot { display:flex; flex-direction:column; align-items:center;
-             padding-top:clamp(26px, 4vw, 48px); }
+.hero-foot { display:flex; justify-content:center; padding-top:clamp(26px, 4vw, 48px); }
 .links { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-/* The button says "Install", which is only true on a mac: tapping an .otf on
-   iOS downloads a file the system will not install on its own. Most of the
-   traffic here arrives from a phone, so the answer sits under the buttons
-   rather than in the comments. */
-.installnote { margin:14px auto 0; max-width:36ch; text-align:center;
-               font-size:12px; line-height:1.7; color:var(--mid); text-wrap:balance; }
-.band.accent .installnote { color:rgba(255,255,255,.74); }
 .pill {
   font-size:14px; text-decoration:none; color:var(--ink); white-space:nowrap;
   border:1px solid var(--line); border-radius:100px; padding:11px 20px;
@@ -322,7 +314,6 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
       <a class="pill" href="dist/SuHand-Regular.woff2" download>Web .woff2</a>
       <a class="pill" href="https://github.com/suhaniashok/su-hand">GitHub</a>
     </div>
-  <p class="installnote">on a mac, double click the file and hit Install. on iphone you&#x2019;ll need a font installer app.</p>
   </div>
 </header>
 
@@ -494,7 +485,6 @@ code { font-family:var(--mono); font-size:.92em; background:#F4F3EF;
     <a class="pill" href="dist/SuHand-Regular.woff2" download>Web .woff2</a>
     <a class="pill" href="https://github.com/suhaniashok/su-hand">GitHub</a>
   </div>
-  <p class="installnote">on a mac, double click the file and hit Install. on iphone you&#x2019;ll need a font installer app.</p>
 </section>
 
 <footer>
