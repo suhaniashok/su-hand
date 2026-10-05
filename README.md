@@ -81,9 +81,10 @@ To install it on a Mac, double-click the `.otf` and hit "Install Font".
 
 © Suhani Ashok.
 
-**Free for personal use. Ask me before anything commercial.** Install it and
-set what you like with it for yourself; open an issue before using it for a
-client, a product, a brand or anything that earns money. Please do not
-redistribute the files, host your own copy, or alter the outlines.
+**Free for personal use, and free for small indie apps up to 10,000 total
+downloads**, marketing included, with credit. Past that, and for companies, it
+is a paid licence (USD 150 for an app, USD 99 for marketing).
+**Never in a logo.** Please do not redistribute the files, host your own copy,
+or alter the outlines.
 
 Full terms in [LICENCE.md](LICENCE.md).
