@@ -10,7 +10,7 @@ This repo is the built font only, published so my projects can pull one copy. Th
 
 ## Use it on the web
 
-Via CDN, no install:
+Load it from the CDN, no install:
 
 ```css
 @font-face {
@@ -22,19 +22,7 @@ Via CDN, no install:
 }
 ```
 
-Or install it and serve it yourself:
-
-```
-npm install github:suhaniashok/su-hand
-```
-
-```css
-@font-face {
-  font-family: "Su Hand";
-  src: url("~su-hand/dist/SuHand-Regular.woff2") format("woff2");
-  font-display: swap;
-}
-```
+Please use this link rather than hosting your own copy of the file (see the licence).
 
 Pin the tag rather than tracking `main`, so a rebuild never moves type under a live page.
 

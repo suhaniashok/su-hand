@@ -25,6 +25,8 @@ Free means everything except a logo:
   inside the app so it renders.
 - **Marketing the app.** Screenshots, store listings, your app's website, promo
   videos, captions, annotations, title cards, social posts, even paid ads.
+- **On the web**, load it from the CDN link in the README rather than hosting
+  your own copy of the file.
 
 In return:
 
